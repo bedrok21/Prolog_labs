@@ -25,23 +25,13 @@ filter_element(X, [H|T], [H|Result], Num) :-
     filter_element(X, T, Result, Num).
 
 
-insert_in_final_list(X, I, List, Result) :-
-    length(List, N),
-    N >= I,
-    insert_nth_sublist(X, I, List, Result).
-insert_in_final_list(X, I, List, Result) :-
-    length(List, N),
-    N < I,
-    insert_nth_sublist(X, I, List, Result).
-
-
 group([], []).
 group([H|T], Result) :-
     group([H|T], [], Result).
 group([], Helper, Helper).
 group([H|T], Helper1, Result) :-
     filter_element(H, [H|T], Filtered, N),
-    insert_in_final_list(H, N, Helper1, Helper2),
+    insert_nth_sublist(H, N, Helper1, Helper2),
     group(Filtered, Helper2, Result).
 
 main :-
